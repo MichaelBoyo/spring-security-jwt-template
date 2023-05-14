@@ -32,12 +32,14 @@ public class CustomUserDetailsService {
     }
 
     @PostConstruct
-    void initUsers(){
+    void initUsers() {
         Role role = new Role(RoleName.SUPER_ADMIN);
-        role.getPermissions().addAll(Set.of(Permission.READ,Permission.WRITE));
-        BaseUser baseUser = new BaseUser("superadmin@mail.com",passwordEncoder.encode("superadmin"));
+        role.getPermissions().addAll(Set.of(Permission.READ, Permission.WRITE));
+        BaseUser baseUser = new BaseUser("superadmin@mail.com", passwordEncoder.encode("superadmin"));
         baseUser.getRoles().add(role);
-        baseUserRepository.save(baseUser);
+        if (!baseUserRepository.existsByEmail(baseUser.getEmail())) {
+            baseUserRepository.save(baseUser);
+        }
     }
 
 

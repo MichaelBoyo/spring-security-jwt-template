@@ -38,8 +38,9 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/api/**").permitAll()
-                                .requestMatchers("/api/v2/admin/**").hasAnyAuthority("ENUM_ADMIN_OPERATIONS")
+                                .requestMatchers("/api/auth").permitAll()
+                                .requestMatchers("/api/superadmin/invite-admin").hasAnyAuthority("SUPER_ADMIN_WRITE")
+                                .requestMatchers("/api/superadmin/all-admins").hasAnyAuthority("SUPER_ADMIN_READ")
                                 .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtToUserConverter)))

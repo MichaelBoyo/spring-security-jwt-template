@@ -7,10 +7,7 @@ import com.example.security.data.TokenResponse;
 import com.example.security.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/auth")
@@ -19,12 +16,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping
-    public ResponseEntity<TokenResponse> login(LoginRequest loginRequest) throws CustomException {
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest) throws CustomException {
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<TokenResponse> refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<TokenResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return ResponseEntity.ok(authService.refresh(refreshTokenRequest));
     }
 
