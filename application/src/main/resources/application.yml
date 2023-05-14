@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rest
+    username: root
+    password: password
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+
+jwt:
+  dir: jwt-keys
+  access:
+    duration: 30  #minutes
+    path:
+      public: jwt-keys/access-public.key
+      private: jwt-keys/access-private.key
+  refresh:
+    duration: 30   #days
+    path:
+      public: jwt-keys/refresh-public.key
+      private: jwt-keys/refresh-private.key
